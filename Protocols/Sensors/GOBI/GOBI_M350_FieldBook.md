@@ -107,7 +107,9 @@ confidence in downstream data analysis across APPN operations.
 
 > [!IMPORTANT]
 > Ensure that you apply for UAV flight approvals for locations and dates of
-> flights well in advance. Further planning documentation for the GOBI can
+> flights well in advance. Always use the **latest version** of the
+> [GRYFN Flight Calculator](https://gryfn.gitbook.io/gryfn-operations/operations/flight-planning/flight-planning-calculator)
+> when planning flights. Further planning documentation for the GOBI can
 > be found in the
 > [GRYFN operations gitbook](https://gryfn.gitbook.io/gryfn-operations/operations).
 
@@ -140,9 +142,11 @@ confidence in downstream data analysis across APPN operations.
    speed, altitude, and frame period required to survey the area of interest.
    See the [Standard Mission Parameters](#standard-mission-parameters) table
    below for examples of common flight types.
-8. Ensure the frame period is **> 20% oversampled (30% is our default)
-   and the side overlap is 40%**. In windier conditions (> 5 m/s),
-   increase the side overlap to 50%.
+8. Ensure the frame period is **> 20% oversampled (30% is our default)**
+   and the side overlap is **75%, calculated from the RGB camera** (see
+   the important note under
+   [Standard Mission Parameters](#standard-mission-parameters)). In
+   windier conditions (> 5 m/s), increase the RGB side overlap to 80%.
 
 ### Standard Mission Parameters
 
@@ -153,7 +157,27 @@ confidence in downstream data analysis across APPN operations.
 | Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  |          75%           |
 | Type 4                | Surveys using LiDAR and RGB only (ecosystem measurements, forestry)  |     100      |      9      | N/A                      |          75%           |
 
-> \* When using the RGB camera, select *custom camera* in flight planning.
+> \* When using the RGB camera, select *custom camera* in flight planning
+> (see the [GRYFN custom camera settings guide](https://gryfn.gitbook.io/gryfn-operations/uas-quick-start/ground-control-software/custom-camera-settings)).
+
+> [!IMPORTANT]
+> **Side overlap is always planned from the RGB camera** — select
+> *custom camera* in DJI Pilot 2 flight planning and enter the RGB
+> camera parameters per the
+> [GRYFN custom camera settings guide](https://gryfn.gitbook.io/gryfn-operations/uas-quick-start/ground-control-software/custom-camera-settings).
+> RGB frame cameras are the limiting factor for
+> flight planning: they have the highest overlap requirements and
+> typically the lowest frame rate. GRYFN recommends an absolute minimum
+> of 70% overlap and 70% sidelap to process an orthomosaic, with higher
+> values (80% for both) giving better feature matching and
+> higher-quality data products — hence the 75% default above.
+>
+> **Do not apply these percentages to the hyperspectral (VNIR)
+> sensor.** The VNIR swath is much narrower than the RGB footprint, so
+> planning 70–80% sidelap against the VNIR sensor produces far too many
+> flight lines. The VNIR sensor only requires > 40% side overlap,
+> which is automatically satisfied when the mission is planned at 75%
+> RGB side overlap.
 
 ---
 

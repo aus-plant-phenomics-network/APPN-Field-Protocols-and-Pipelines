@@ -110,9 +110,11 @@ operations.
 
 ## Flight Planning – Inspired Flight IF1200A
 
-> [!WARNING]
+> [!IMPORTANT]
 > Ensure that you apply for UAV flight approvals for locations and dates of
-> flights well in advance.
+> flights well in advance. Always use the **latest version** of the
+> [GRYFN Flight Calculator](https://gryfn.gitbook.io/gryfn-operations/operations/flight-planning/flight-planning-calculator)
+> when planning flights.
 
 1. Using a GPS survey system (Emlid, Trimble…) or a GIS software, create a
    polygon of the area of interest. Make sure your polygon includes the areas
@@ -135,8 +137,10 @@ operations.
      cause a visibly less smooth trajectory.
    - Altitude and speed will be tested and recommended from APEx results.
    - Ensure the frame period is at a minimum of 20% oversampling, the side
-     overlap is > 40% for the SWIR sensor, and the *turnaround distance* is
-     2× flight speed (> 3× at > 6 m/s).
+     overlap is **75%, calculated from the RGB camera** (see the important
+     note under [Standard Mission Parameters](#standard-mission-parameters);
+     this gives > 40% side overlap for the VNIR sensor), and the
+     *turnaround distance* is 2× flight speed (> 3× at > 6 m/s).
 6. Ensure flight lines are in the direction of planting (GRYFN).
 
 ### Standard Mission Parameters
@@ -147,6 +151,23 @@ operations.
 | Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  |                     13                     |
 | Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  |                     21                     |
 | Type 4                | Surveys using LiDAR and RGB only (ecosystem measurements, forestry)  |     100      |      9      | N/A                      |                     37                     |
+
+> [!IMPORTANT]
+> **Side overlap is always planned from the RGB camera.** The
+> flight-line distances above are derived from **75% side overlap on the
+> RGB camera** using the GRYFN flight calculator. RGB frame cameras are
+> the limiting factor for flight planning: they have the highest overlap
+> requirements and typically the lowest frame rate. GRYFN recommends an
+> absolute minimum of 70% overlap and 70% sidelap to process an
+> orthomosaic, with higher values (80% for both) giving better feature
+> matching and higher-quality data products.
+>
+> **Do not calculate flight-line spacing from the hyperspectral (VNIR)
+> sensor at these percentages.** The VNIR swath is much narrower than
+> the RGB footprint, so planning 70–80% sidelap against the VNIR sensor
+> produces far too many flight lines. The VNIR sensor only requires
+> more than 40% side overlap, which is automatically satisfied when the
+> mission is planned at 75% RGB side overlap.
 
 ---
 

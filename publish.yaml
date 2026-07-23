@@ -32,7 +32,7 @@
 #   x      letter patch suffix; editorial-only change (typo, clarification,
 #          photo) — no procedure change. No letter means no patch.
 
-revision: "1.00"
+revision: "1.01"
 # revision_date: "2026-04-25"   # uncomment to pin; defaults to today (UTC)
 
 repo_url: "https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines"
@@ -94,21 +94,21 @@ pages:
     title: "CALViS Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.00"
+    last_revised: "1.01"
 
   - source: Protocols/Sensors/GOBI/GOBI_M350_FieldBook.md
     wiki_page: GOBI-M350-Fieldbook
     title: "GOBI M350 Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.00"
+    last_revised: "1.01"
 
   - source: Protocols/Sensors/GOBI/GOBI_IF1200_FieldBook.md
     wiki_page: GOBI-IF1200-Fieldbook
     title: "GOBI IF1200 Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.00"
+    last_revised: "1.01"
 
   - source: Protocols/Sensors/M3M/M3M_FieldBook.md
     wiki_page: M3M-Fieldbook
@@ -184,7 +184,7 @@ pages:
     title: "Processing Pipelines"
     category: Pipelines
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.00"
+    last_revised: "1.01"
 
   - source: Protocols/Pipelines/M3MPipeline/M3M_Processing_Pipeline.md
     wiki_page: M3M-Processing-Pipeline
@@ -207,7 +207,7 @@ pages:
     title: "Standard Data Products"
     category: Background
     status: [drafted, adopted]
-    last_revised: "1.00"
+    last_revised: "1.01"
     notes: "Background document - not a protocol"
 
   - source: Protocols/Background/PhenotypingAndEnvironmental/Ground_Phenotyping_and_Environmental.md

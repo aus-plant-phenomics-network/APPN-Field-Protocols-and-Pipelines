@@ -121,7 +121,9 @@ analysis across APPN operations.
 
 > [!IMPORTANT]
 > Ensure that you apply for UAV flight approvals for locations and dates of
-> flights well in advance. Further planning documentation can be found in the
+> flights well in advance. Always use the **latest version** of the
+> [GRYFN Flight Calculator](https://gryfn.gitbook.io/gryfn-operations/operations/flight-planning/flight-planning-calculator)
+> when planning flights. Further planning documentation can be found in the
 > [IF1200 manual](https://docs.inspiredflight.com/inspired-documentation/products/aircraft/if1200/if1200-manual).
 
 1. Using a GPS survey system (Emlid, Trimble…) or a GIS software, create a
@@ -190,8 +192,11 @@ analysis across APPN operations.
      cause a visibly less smooth trajectory.
    - Altitude and speed will be tested and recommended from APEx results.
    - Ensure the frame period is at a minimum of 20% oversampling, the side
-     overlap is > 40% for the SWIR sensor, and the *turnaround distance* is
-     2× flight speed (> 3× at > 6 m/s).
+     overlap is > 30% for the SWIR sensor (> 40% for the VNIR), and the
+     *turnaround distance* is 2× flight speed (> 3× at > 6 m/s). See the
+     note under the
+     [Standard Mission Parameters](#standard-mission-parameters) table
+     for why the SWIR sensor is used to set the side overlap.
 7. Ensure flight lines are in the direction of planting (GRYFN).
 
 > [!NOTE]
@@ -213,6 +218,15 @@ analysis across APPN operations.
 | Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  | 6.0 (30% oversampling)   |                     8                      |
 | Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  | 6.56 (30% oversampling)  |                     13                     |
 | Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  | 6.59 (30% oversampling)  |                     21                     |
+
+> [!NOTE]
+> **Side overlap is planned from the SWIR sensor.** The SWIR has a
+> narrower swath than the VNIR at the same altitude, making it the
+> limiting sensor for flight-line spacing — CALViS carries no RGB frame
+> camera, so the hyperspectral sensors govern the plan. Setting > 30%
+> side overlap on the SWIR in the GRYFN flight calculator automatically
+> gives > 40% on the wider VNIR swath. Planning from the VNIR instead
+> would leave gaps in SWIR coverage between adjacent flight lines.
 
 ---
 
