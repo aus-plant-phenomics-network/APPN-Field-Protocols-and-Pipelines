@@ -218,6 +218,14 @@ confidence in downstream data analysis across APPN operations.
 > oversampling and sidelap margins. Either source is acceptable; the
 > values in the table above are from the flight calculator.
 
+> [!NOTE]
+> **Type 1 (30 m) uses 20% oversampling, not the 30% used for Types 2–3.**
+> At 30 m the finer ground sampling requires a higher frame rate, so 30%
+> oversampling pushes the VNIR frame rate close to the sensor's maximum,
+> which GRYFN does not recommend. 20% oversampling keeps a safe margin
+> below the maximum frame rate while still meeting the minimum oversampling
+> requirement.
+
 ---
 
 ## Onsite Preflight Operations

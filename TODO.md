@@ -57,14 +57,12 @@ Raised in the GOBI overlap/sidelap review (Warin / Lleyton / Connor email
 thread) and Lleyton's follow-up. These need a call before the revised GOBI
 overlap guidance is locked into a release:
 
-- [ ] **30 m (Type 1) VNIR oversampling — 20% or 30%?** Type 1 currently
-  uses **20%** oversampling while Types 2–3 use **30%**. Lleyton queried the
-  inconsistency and leans toward standardising on **30% everywhere** (at 30%
-  the VNIR frame rate is still only ~215 Hz vs the 250 Hz sensor max; the
-  calculator's flag is a warning, not a hard limit). Changing this updates
-  the Type 1 `Frame Period (Hz)` cell (and possibly line spacing) in the
-  Standard Mission Parameters tables of **both** GOBI fieldbooks — recompute
-  the frame period in the GRYFN calculator / Gryfn WebUI.
+- [x] **30 m (Type 1) VNIR oversampling — resolved: keep 20%.** At 30 m the
+  finer ground sampling requires a higher frame rate, so 30% oversampling
+  pushes the VNIR frame rate close to the sensor's maximum frame period,
+  which GRYFN does not recommend. Type 1 therefore stays at **20%**
+  oversampling (Types 2–3 remain 30%). Both GOBI fieldbooks now note this
+  explicitly.
 
 ---
 
