@@ -51,6 +51,23 @@ separately in [IMAGE_TODO.md](IMAGE_TODO.md).
 
 ---
 
+## Open decisions — GOBI overlap review (Aug 2026)
+
+Raised in the GOBI overlap/sidelap review (Warin / Lleyton / Connor email
+thread) and Lleyton's follow-up. These need a call before the revised GOBI
+overlap guidance is locked into a release:
+
+- [ ] **30 m (Type 1) VNIR oversampling — 20% or 30%?** Type 1 currently
+  uses **20%** oversampling while Types 2–3 use **30%**. Lleyton queried the
+  inconsistency and leans toward standardising on **30% everywhere** (at 30%
+  the VNIR frame rate is still only ~215 Hz vs the 250 Hz sensor max; the
+  calculator's flag is a warning, not a hard limit). Changing this updates
+  the Type 1 `Frame Period (Hz)` cell (and possibly line spacing) in the
+  Standard Mission Parameters tables of **both** GOBI fieldbooks — recompute
+  the frame period in the GRYFN calculator / Gryfn WebUI.
+
+---
+
 ## What was cleared for 1.0
 
 The following in-scope content items were completed during release prep:
