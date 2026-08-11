@@ -122,6 +122,14 @@ operations.
    5 m buffer to avoid incomplete data.
 2. Save this polygon twice as a KML — once as a *survey* polygon and once as a
    *capture* polygon.
+
+   > [!NOTE]
+   > Buffer the *capture* polygon **perpendicular to the flight direction**
+   > by at least one flight-line spacing on each side. When a flight line
+   > runs immediately adjacent to the capture-polygon boundary, the aircraft
+   > can drift out of the capture region and hyperspectral triggering stops,
+   > losing data along that edge. A perpendicular buffer provides margin for
+   > trajectory variation and ensures full capture on the outermost lines.
 3. If using QGIS, export the polygon as a KML (in Geometry, select *include
    z-dimension*, and ensure the CRS is set to WGS 84). Import the *capture*
    KML into the [HPI Polygon Tool](http://50.170.92.179/) and export. This
@@ -136,38 +144,61 @@ operations.
      less than 2 m/s accentuate the impacts of wind on aircraft stability and
      cause a visibly less smooth trajectory.
    - Altitude and speed will be tested and recommended from APEx results.
-   - Ensure the frame period is at a minimum of 20% oversampling, the side
-     overlap is **75%, calculated from the RGB camera** (see the important
-     note under [Standard Mission Parameters](#standard-mission-parameters);
-     this gives > 40% side overlap for the VNIR sensor), and the
-     *turnaround distance* is 2× flight speed (> 3× at > 6 m/s).
+   - Ensure the frame period is at a minimum of 20% oversampling. Frame
+     period sets the along-track sampling and is separate from side
+     overlap.
+   - Ensure **side overlap is driven by the VNIR requirement, not the RGB
+     camera** (see the important note under
+     [Standard Mission Parameters](#standard-mission-parameters)). For
+     hyperspectral missions (Types 1–3), plan at **80% RGB side overlap**,
+     which yields approximately **37% VNIR side overlap**; the flight-line
+     spacings in the table below are derived from this requirement.
+   - Ensure the *turnaround distance* is 2× flight speed (> 3× at > 6 m/s).
 6. Ensure flight lines are in the direction of planting (GRYFN).
 
 ### Standard Mission Parameters
 
 | Standard Mission Type | Scenario                                                              | Altitude (m) | Speed (m/s) | Frame Period (Hz)        | Distance between flight lines — IF1200 (m) |
 | :-------------------- | :-------------------------------------------------------------------- | :----------: | :---------: | :----------------------- | :----------------------------------------: |
-| Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  |                     8                      |
-| Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  |                     13                     |
-| Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  |                     21                     |
+| Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  |                     9                      |
+| Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  |                     15                     |
+| Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  |                     24                     |
 | Type 4                | Surveys using LiDAR and RGB only (ecosystem measurements, forestry)  |     100      |      9      | N/A                      |                     37                     |
 
 > [!IMPORTANT]
-> **Side overlap is always planned from the RGB camera.** The
-> flight-line distances above are derived from **75% side overlap on the
-> RGB camera** using the GRYFN flight calculator. RGB frame cameras are
-> the limiting factor for flight planning: they have the highest overlap
-> requirements and typically the lowest frame rate. GRYFN recommends an
-> absolute minimum of 70% overlap and 70% sidelap to process an
-> orthomosaic, with higher values (80% for both) giving better feature
-> matching and higher-quality data products.
+> **Overlap must be driven by the VNIR (hyperspectral) data-quality
+> requirement — RGB overlap alone is not a sufficient measure of
+> acceptable sidelap.** The flight-line distances above are derived from
+> **80% RGB side overlap** (via the GRYFN flight calculator), which
+> resolves to approximately **37% VNIR side overlap**. Historically the
+> 75% RGB setting was assumed to guarantee adequate VNIR sidelap; in
+> practice it produces *very low* VNIR overlap and has caused missing
+> pixels, linear data holes, and stronger edge/directional effects in
+> recent flights.
 >
-> **Do not calculate flight-line spacing from the hyperspectral (VNIR)
-> sensor at these percentages.** The VNIR swath is much narrower than
-> the RGB footprint, so planning 70–80% sidelap against the VNIR sensor
-> produces far too many flight lines. The VNIR sensor only requires
-> more than 40% side overlap, which is automatically satisfied when the
-> mission is planned at 75% RGB side overlap.
+> VNIR side-overlap targets:
+>
+> - **~37%** — delivered by the spacings above; treat as the practical
+>   minimum.
+> - **≥ 40%** — preferred, for robustness under wind and trajectory
+>   variation.
+> - **≥ 50%** — every ground point is imaged by **at least two flight
+>   lines**, greatly increasing redundancy and resilience to trajectory
+>   error. Reduce line spacing further where this level of redundancy is
+>   required.
+>
+> RGB frame cameras remain the limiting factor for the orthomosaic —
+> GRYFN recommends an absolute minimum of 70% overlap/sidelap, with 80%
+> giving better feature matching. These spacings bring the GOBI IF1200
+> into alignment with the GOBI M350 recommendations. **RGB-only missions
+> (Type 4)** have no VNIR requirement.
+
+> [!NOTE]
+> Frame-period values may differ between the **GRYFN Flight Calculator**
+> and the **Gryfn WebUI**; the WebUI values are the more precise. Maintain
+> a single authoritative source for operational frame periods and record
+> which tool each value came from. The values in the table above are from
+> the flight calculator.
 
 ---
 
@@ -504,6 +535,13 @@ Formal paths use the wiki's placeholder syntax; an example follows each.
 
 7. Standard QA process should be performed following
    [this guide](../../QA/QAprocess/AerialDataQC.md).
+
+   > [!NOTE]
+   > Missing pixels along VNIR image edges can result from insufficient
+   > overlap, trajectory irregularities, overly restrictive KML
+   > boundaries, or a restrictive processing extent. Where practical,
+   > process with no fixed extent (or against a generously buffered
+   > capture polygon) so valid edge data is not clipped.
 
 ---
 

@@ -127,6 +127,14 @@ confidence in downstream data analysis across APPN operations.
 
    ![Survey vs capture polygon layout](GOBI_M350_FieldBook_media/image_318468665ad6.png)
 
+   > [!NOTE]
+   > Buffer the *capture* polygon **perpendicular to the flight direction**
+   > by at least one flight-line spacing on each side. When a flight line
+   > runs immediately adjacent to the capture-polygon boundary, the aircraft
+   > can drift out of the capture region and hyperspectral triggering stops,
+   > losing data along that edge. A perpendicular buffer provides margin for
+   > trajectory variation and ensures full capture on the outermost lines.
+
 3. *If using QGIS*, import the *capture* KML into Google Earth and
    immediately export it again. This is due to the required formatting
    Google Earth supplies, versus QGIS.
@@ -142,42 +150,65 @@ confidence in downstream data analysis across APPN operations.
    speed, altitude, and frame period required to survey the area of interest.
    See the [Standard Mission Parameters](#standard-mission-parameters) table
    below for examples of common flight types.
-8. Ensure the frame period is **> 20% oversampled (30% is our default)**
-   and the side overlap is **75%, calculated from the RGB camera** (see
-   the important note under
-   [Standard Mission Parameters](#standard-mission-parameters)). In
-   windier conditions (> 5 m/s), increase the RGB side overlap to 80%.
+8. Set the frame period to **> 20% oversampling (30% is our default)**.
+   Frame period sets the along-track sampling and is separate from side
+   overlap. Then ensure **side overlap is driven by the VNIR
+   (hyperspectral) requirement, not the RGB camera** (see the important
+   note under [Standard Mission Parameters](#standard-mission-parameters)):
+   for hyperspectral missions (Types 1–3) plan at **80% side overlap from
+   the RGB custom camera**, which the GRYFN flight calculator resolves to
+   approximately **37% VNIR side overlap**. RGB-only missions (Type 4)
+   have no VNIR requirement and may use 75%.
 
 ### Standard Mission Parameters
 
 | Standard Mission Type | Scenario                                                              | Altitude (m) | Speed (m/s) | Frame Period (Hz)        | Side Overlap % (DJI)\* |
 | :-------------------- | :-------------------------------------------------------------------- | :----------: | :---------: | :----------------------- | :--------------------: |
-| Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  |          75%           |
-| Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  |          75%           |
-| Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  |          75%           |
+| Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  |          80%           |
+| Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  |          80%           |
+| Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  |          80%           |
 | Type 4                | Surveys using LiDAR and RGB only (ecosystem measurements, forestry)  |     100      |      9      | N/A                      |          75%           |
 
-> \* When using the RGB camera, select *custom camera* in flight planning
-> (see the [GRYFN custom camera settings guide](https://gryfn.gitbook.io/gryfn-operations/uas-quick-start/ground-control-software/custom-camera-settings)).
+> \* Select *custom camera* in DJI Pilot 2 flight planning and enter the
+> **RGB camera** parameters per the
+> [GRYFN custom camera settings guide](https://gryfn.gitbook.io/gryfn-operations/uas-quick-start/ground-control-software/custom-camera-settings).
+> The percentages above are the **RGB** side overlap entered into the
+> flight planner.
 
 > [!IMPORTANT]
-> **Side overlap is always planned from the RGB camera** — select
-> *custom camera* in DJI Pilot 2 flight planning and enter the RGB
-> camera parameters per the
-> [GRYFN custom camera settings guide](https://gryfn.gitbook.io/gryfn-operations/uas-quick-start/ground-control-software/custom-camera-settings).
-> RGB frame cameras are the limiting factor for
-> flight planning: they have the highest overlap requirements and
-> typically the lowest frame rate. GRYFN recommends an absolute minimum
-> of 70% overlap and 70% sidelap to process an orthomosaic, with higher
-> values (80% for both) giving better feature matching and
-> higher-quality data products — hence the 75% default above.
+> **Overlap must be driven by the VNIR (hyperspectral) data-quality
+> requirement — RGB overlap alone is not a sufficient measure of
+> acceptable sidelap.** Historically the standard 75% RGB setting was
+> assumed to guarantee adequate VNIR sidelap; in practice it produces
+> *very low* VNIR overlap and has caused missing pixels, linear data
+> holes, and stronger edge/directional effects in recent flights.
 >
-> **Do not apply these percentages to the hyperspectral (VNIR)
-> sensor.** The VNIR swath is much narrower than the RGB footprint, so
-> planning 70–80% sidelap against the VNIR sensor produces far too many
-> flight lines. The VNIR sensor only requires > 40% side overlap,
-> which is automatically satisfied when the mission is planned at 75%
-> RGB side overlap.
+> For hyperspectral missions (Types 1–3) plan at **80% RGB side
+> overlap**. The GRYFN flight calculator resolves this to approximately
+> **37% VNIR side overlap** at these altitudes. VNIR side-overlap targets:
+>
+> - **~37%** — delivered by the 80% RGB standard; treat as the practical
+>   minimum.
+> - **≥ 40%** — preferred, for robustness under wind and trajectory
+>   variation.
+> - **≥ 50%** — every ground point is imaged by **at least two flight
+>   lines**, greatly increasing redundancy and resilience to trajectory
+>   error. Increase RGB overlap further where this level of redundancy is
+>   required.
+>
+> RGB frame cameras remain the limiting factor for the orthomosaic —
+> GRYFN recommends an absolute minimum of 70% overlap/sidelap, with 80%
+> giving better feature matching — so planning at 80% RGB keeps RGB
+> products well within spec while lifting VNIR sidelap to an acceptable
+> level. **RGB-only missions (Type 4)** have no VNIR requirement and may
+> use 75%.
+
+> [!NOTE]
+> Frame-period values may differ between the **GRYFN Flight Calculator**
+> and the **Gryfn WebUI**; the WebUI values are the more precise. Maintain
+> a single authoritative source for operational frame periods and record
+> which tool each value came from. The values in the table above are from
+> the flight calculator.
 
 ---
 
@@ -508,6 +539,13 @@ Formal paths use the wiki's placeholder syntax; an example follows each.
 
 7. Standard QA process should be performed following
    [this guide](../../QA/QAprocess/AerialDataQC.md).
+
+   > [!NOTE]
+   > Missing pixels along VNIR image edges can result from insufficient
+   > overlap, trajectory irregularities, overly restrictive KML
+   > boundaries, or a restrictive processing extent. Where practical,
+   > process with no fixed extent (or against a generously buffered
+   > capture polygon) so valid edge data is not clipped.
 
 ---
 
