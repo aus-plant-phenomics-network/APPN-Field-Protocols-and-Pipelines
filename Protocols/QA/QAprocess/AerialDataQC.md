@@ -82,14 +82,41 @@ These file-format, naming, and storage rules apply to every QC process
 
 ### Naming Conventions
 
+All QC vector files follow a single pattern:
+
+```
+QC_{TargetType}_{TargetIdentifier}_{Descriptor}.geojson
+```
+
+Where:
+
+- **`QC`** — fixed prefix that flags the file as a QC vector layer so it is
+  picked up by the QA pipeline.
+- **`{TargetType}`** — what kind of QC the file supports. Current values are
+  `ELM` (reflectance panels used to build the ELM), `VAL` (validation
+  panels/targets *not* used in the ELM), `GCP` (ground control points for
+  positional QC), and `LIDAR` (LiDAR calibration surfaces).
+- **`{TargetIdentifier}`** — **optional.** Omit this segment when there is
+  only a single standard target of that type in the flight. Add it when
+  there are multiple targets, or when downstream reporting needs to
+  distinguish between them (see the per-row rules below). A few identifiers
+  are **reserved** and always carry a fixed meaning — most importantly
+  `groundtruth` on a `GCP` file, which marks the surveyed reference layer
+  (see the `QC_GCP_groundtruth_points.geojson` row).
+- **`{Descriptor}`** — what the geometry represents (e.g. `Panels`,
+  `points`, `Surface`).
+
+The specific names in use today are:
+
 | Name                                    | Overview                                                                                                                  |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `QC_ELM_Panels.geojson`                 | Polygons of the reflectance panels used in the ELM during GRYFN Processing.                                               |
-| `QC_VAL_Grfyn_Panels.geojson`           | When a second set of GRYFN panels is placed in the field. Replace *ELM* with *VAL* for validation.                        |
-| `QC_VAL_{PanelName}_Panels.geojson`     | Any future validation panels or tests of other panels. Replace `{PanelName}` with the name or unique identifier.          |
-| `QC_GCP_groundtruth_points.geojson`     | **Reference** GCP locations measured independently in the field (e.g. Aeropoint, Trimble RTK). Points-only file; one point per GCP, with an `ID` matching the field log.                                  |
-| `QC_GCP_points.geojson`        | **Observed** GCP locations as digitised from the drone orthomosaic in QGIS. Points-only file; `GCP_name` must match the corresponding `ID` in `QC_GCP_groundtruth_points.geojson` so the two can be paired for residual reporting. |
-| `QC_LIDAR_{TargetName}_Surface.geojson` | Name for any future LiDAR calibration surfaces.                                                                           |
+| `QC_ELM_Panels.geojson`                 | Polygons of the reflectance panels used in the ELM during GRYFN Processing. Use this exact name when a **single** GRYFN 4-panel set was used for the ELM. If two 4-panel sets are used together for the ELM, add a target identifier for each (e.g. `QC_ELM_east_Panels.geojson` / `QC_ELM_west_Panels.geojson`, or an inventory tag such as `QC_ELM_blue_Panels.geojson` / `QC_ELM_yellow_Panels.geojson` — USYD, for instance, tags its two sets blue and yellow).                                                                                                                                                                                             |
+| `QC_VAL_Panels.geojson`                 | Reserved for the **GRYFN dedicated 2-panel validation set**. Each node has exactly one of these, so no target identifier is needed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `QC_VAL_{PanelName}_Panels.geojson`     | Any other panel set or validation target that is placed in the field but **not** used in the ELM. Replace `{PanelName}` with the target's name or unique identifier — e.g. a spare GRYFN 4-panel set becomes `QC_VAL_Grfyn4P_Panels.geojson`.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `QC_GCP_groundtruth_points.geojson`     | **Reference** GCP locations measured independently in the field (e.g. Aeropoint, Trimble RTK). Here `groundtruth` is a **reserved target identifier** that flags this file as the surveyed reference layer — do not use it for any other purpose. Points-only file; one point per GCP, with an `ID` matching the field log.                                                                                                                                                                                                                                                                                                                                                   |
+| `QC_GCP_points.geojson`                 | **Observed** GCP locations as digitised from the drone orthomosaic in QGIS. Use this exact name (no target identifier) **only when every data product for the flight aligns perfectly** (i.e. one set of digitised points is valid for all orthomosaics). `GCP_name` must match the corresponding `ID` in `QC_GCP_groundtruth_points.geojson` so the two can be paired for residual reporting.                                                                                                                                                                                                                                                                                 |
+| `QC_GCP_{Product}_points.geojson`       | **Observed** GCP locations when the flight's data products **do not** all align to a single set of digitised points. Digitise a separate layer for each product and use the product name as the target identifier — e.g. `QC_GCP_VNIR_points.geojson`, `QC_GCP_SWIR_points.geojson`, `QC_GCP_RGB_points.geojson`. This naming is **strongly recommended**, as the accuracy report uses the identifier to label the per-product residuals. `GCP_name` must still match the corresponding `ID` in `QC_GCP_groundtruth_points.geojson`.                                                                                                                                            |
+| `QC_LIDAR_{TargetName}_Surface.geojson` | Name for any future LiDAR calibration surfaces. Replace `{TargetName}` with the target identifier.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 > [!TIP]
 > Any additional information (e.g. date) can be added to the end of the file
