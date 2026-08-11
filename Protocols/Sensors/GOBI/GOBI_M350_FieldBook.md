@@ -134,6 +134,10 @@ confidence in downstream data analysis across APPN operations.
    > can drift out of the capture region and hyperspectral triggering stops,
    > losing data along that edge. A perpendicular buffer provides margin for
    > trajectory variation and ensures full capture on the outermost lines.
+   > **Increase the buffer further when flight lines cross the polygon
+   > boundary at an angle** (e.g. north–south APEx flights): the aircraft
+   > enters and exits the polygon at an angle, so a triggered frame can fall
+   > half inside and half outside the capture region.
 
 3. *If using QGIS*, import the *capture* KML into Google Earth and
    immediately export it again. This is due to the required formatting
@@ -204,11 +208,15 @@ confidence in downstream data analysis across APPN operations.
 > use 75%.
 
 > [!NOTE]
-> Frame-period values may differ between the **GRYFN Flight Calculator**
-> and the **Gryfn WebUI**; the WebUI values are the more precise. Maintain
-> a single authoritative source for operational frame periods and record
-> which tool each value came from. The values in the table above are from
-> the flight calculator.
+> Frame-period values may differ slightly between the **GRYFN Flight
+> Calculator** and the **Gryfn WebUI**. The WebUI uses each sensor's
+> *calibrated* focal length, whereas the calculator uses the
+> manufacturer's nominal value (VNIR ~12.6 mm, RGB ~24 mm). Calibrated
+> focal lengths are typically slightly shorter, marginally reducing the
+> computed frame rate and overlap, but the difference is negligible
+> (~0.01 ms in frame period, ~0.02% in sidelap) and is absorbed by the
+> oversampling and sidelap margins. Either source is acceptable; the
+> values in the table above are from the flight calculator.
 
 ---
 

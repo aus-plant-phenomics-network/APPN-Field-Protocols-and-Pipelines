@@ -130,6 +130,10 @@ operations.
    > can drift out of the capture region and hyperspectral triggering stops,
    > losing data along that edge. A perpendicular buffer provides margin for
    > trajectory variation and ensures full capture on the outermost lines.
+   > **Increase the buffer further when flight lines cross the polygon
+   > boundary at an angle** (e.g. north–south APEx flights): the aircraft
+   > enters and exits the polygon at an angle, so a triggered frame can fall
+   > half inside and half outside the capture region.
 3. If using QGIS, export the polygon as a KML (in Geometry, select *include
    z-dimension*, and ensure the CRS is set to WGS 84). Import the *capture*
    KML into the [HPI Polygon Tool](http://50.170.92.179/) and export. This
@@ -194,11 +198,24 @@ operations.
 > (Type 4)** have no VNIR requirement.
 
 > [!NOTE]
-> Frame-period values may differ between the **GRYFN Flight Calculator**
-> and the **Gryfn WebUI**; the WebUI values are the more precise. Maintain
-> a single authoritative source for operational frame periods and record
-> which tool each value came from. The values in the table above are from
-> the flight calculator.
+> Frame-period values may differ slightly between the **GRYFN Flight
+> Calculator** and the **Gryfn WebUI**. The WebUI uses each sensor's
+> *calibrated* focal length, whereas the calculator uses the
+> manufacturer's nominal value (VNIR ~12.6 mm, RGB ~24 mm). Calibrated
+> focal lengths are typically slightly shorter, marginally reducing the
+> computed frame rate and overlap, but the difference is negligible
+> (~0.01 ms in frame period, ~0.02% in sidelap) and is absorbed by the
+> oversampling and sidelap margins. Either source is acceptable; the
+> values in the table above are from the flight calculator.
+
+> [!NOTE]
+> The IF1200 flies **without RTK**, so positional error can be around
+> ± 1 m. At low altitude this materially erodes effective overlap: e.g. a
+> 30 m flight planned at 9 m line spacing can, if two adjacent lines drift
+> ~1 m apart, open to ~10 m and fall to very low VNIR sidelap. Outright
+> gaps are unlikely but overlap can become marginal. Higher altitudes have
+> proportionally more spacing buffer and are less sensitive; favour extra
+> overlap (or tighter spacing) for low-altitude non-RTK flights.
 
 ---
 
