@@ -32,7 +32,7 @@
 #   x      letter patch suffix; editorial-only change (typo, clarification,
 #          photo) — no procedure change. No letter means no patch.
 
-revision: "1.01"
+revision: "1.02"
 # revision_date: "2026-04-25"   # uncomment to pin; defaults to today (UTC)
 
 repo_url: "https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines"
@@ -101,14 +101,14 @@ pages:
     title: "GOBI M350 Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.01"
+    last_revised: "1.02"
 
   - source: Protocols/Sensors/GOBI/GOBI_IF1200_FieldBook.md
     wiki_page: GOBI-IF1200-Fieldbook
     title: "GOBI IF1200 Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.01"
+    last_revised: "1.02"
 
   - source: Protocols/Sensors/M3M/M3M_FieldBook.md
     wiki_page: M3M-Fieldbook
@@ -145,7 +145,7 @@ pages:
     title: "QA Process"
     category: QA
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.00"
+    last_revised: "1.02"
     notes: "Positional thresholds and the spectral/LiDAR accuracy baselines are still being developed against APEx data."
 
   - source: Protocols/QA/SpectralPanel/Spectral_Panel_Cleaning_and_Calibration.md
