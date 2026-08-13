@@ -41,6 +41,7 @@ specific QC type you need:
 - [Spectral QC](#spectral-qc)
   - [Creating Geospatial Vector Data — GOBI & CALViS (QGIS)](#creating-geospatial-vector-data--gobi--calvis-qgis)
   - [Extracting Pixels into a Table](#extracting-pixels-into-a-table)
+  - [Comparing Runs (multi-run QC)](#comparing-runs-multi-run-qc)
 - [LiDAR QC](#lidar-qc)
 
 ---
@@ -459,7 +460,7 @@ all processing in software like GPT is complete.
 CALViS and GOBI flights conducted prior to the *Operational Excellence in APPN
 Hyperspectral Imaging* SIF likely consist of one GRYFN reflectance panel
 (used to generate the ELM in the GRYFN Processing Tool) along with additional
-panels for validation.### Extracting Pixels into a Table
+panels for validation.
 
 File naming, format (GeoJSON preferred), and storage location for the
 polygons created below all follow the
@@ -571,21 +572,65 @@ within the panel, they should be included.
 
 
 
+### Extracting Pixels into a Table
+
 Arden Burrell has made a Python script that can go through the APPN standard
 folder structure, extract the values into a table, and save that as a `.csv`
 or `.parquet` file automatically. The code is available from:
 
 <https://github.com/ArdenB/APPN_GenricFileStorage>
 
-- **Script:** `Code/DS02_DatasetQA/QA00_ELMvaliditation.py`
+- **Script:** `Code/DS02_DatasetQA/QA00_SpectralValidation.py` — per-run
+  extraction, QC report (`QC_data/QC_spectra_report.json`), and per-run
+  spectra figure.
 - **README:** `Code/DS02_DatasetQA/README.md`
+
+The extracted tables are written to a `QC_Spectral_Tables/` folder inside the
+run's `QC_data/` and are named after the panel file they came from:
+
+```
+QC_{ELM|VAL}[_{TargetIdentifier}]_spectra_{VNIR|SWIR}[_gproN][_{Extra}].{parquet|csv}
+```
+
+e.g. `QC_ELM_spectra_VNIR.parquet` or `QC_VAL_Gryfn4P_spectra_SWIR.parquet`.
 
 If nodes choose to extract the points using other means, the tables should
 have the following columns:
 
 ```
-band, wavelength, value, Panel_ref, node, project, site, sensor, date, run, panel_name, type, gpro_nu
+band, wavelength, value, Panel_ref, node, project, site, sensor, date, run, panel_name, EM_Region, gpro_nu
 ```
+
+where `EM_Region` is the electromagnetic region of the source orthomosaic
+(`VNIR` or `SWIR`). The QA00 script additionally records `target_type`
+(`ELM`/`VAL`), `target_id` (the optional target identifier), `panel_set` (the
+physical panel set identified from the `Panel_ref` signature, e.g. `Gryfn4P`
+= {11, 30, 56, 82}, `Gryfn2P` = {20, 45}) and a boolean `Valid_Range` QC
+flag.
+
+### Comparing Runs (multi-run QC)
+
+Cross-run comparison figures (per-panel reflectance and residual spectra,
+one line per run) are produced by a second script in the same repository:
+
+- **Script:** `Code/DS02_DatasetQA/QA02_SpectralRunComparison.py`
+
+It never opens the orthomosaics — it gathers the extracted
+`QC_Spectral_Tables` produced by QA00 across every run under the given
+path. Typical usage:
+
+```bash
+# Extract per-run tables + reports, then compare every run under a node
+python Code/DS02_DatasetQA/QA00_SpectralValidation.py --path /path/to/Node
+python Code/DS02_DatasetQA/QA02_SpectralRunComparison.py --path /path/to/Node
+```
+
+- Figures are saved to `<Node>/Documents/QCReports/` (node path) or
+  `<Project>/Documentation/QCReports/` (project path).
+- `--start-date` / `--end-date` limit which runs are compared (inclusive).
+- `--save-dir` writes copies of every gathered table to one folder for
+  sharing with other nodes (filesender/globus); receiving nodes combine
+  them with their own data via `--load-dir`.
 
 ### Accuracy reporting
 
