@@ -82,6 +82,12 @@ These file-format, naming, and storage rules apply to every QC process
 
 ### Naming Conventions
 
+
+> [!TIP]
+> The exact file names to use for the most common equipment setup are
+> listed in the [worked example](#worked-example--most-common-field-setup)
+> below the table.
+
 All QC vector files follow a single pattern:
 
 ```
@@ -117,6 +123,42 @@ The specific names in use today are:
 | `QC_GCP_points.geojson`                 | **Observed** GCP locations as digitised from the drone orthomosaic in QGIS. Use this exact name (no target identifier) **only when every data product for the flight aligns perfectly** (i.e. one set of digitised points is valid for all orthomosaics). `GCP_name` must match the corresponding `ID` in `QC_GCP_groundtruth_points.geojson` so the two can be paired for residual reporting.                                                                                                                                                                                                                                                                                 |
 | `QC_GCP_{Product}_points.geojson`       | **Observed** GCP locations when the flight's data products **do not** all align to a single set of digitised points. Digitise a separate layer for each product and use the product name as the target identifier — e.g. `QC_GCP_VNIR_points.geojson`, `QC_GCP_SWIR_points.geojson`, `QC_GCP_RGB_points.geojson`. This naming is **strongly recommended**, as the accuracy report uses the identifier to label the per-product residuals. `GCP_name` must still match the corresponding `ID` in `QC_GCP_groundtruth_points.geojson`.                                                                                                                                            |
 | `QC_LIDAR_{TargetName}_Surface.geojson` | Name for any future LiDAR calibration surfaces. Replace `{TargetName}` with the target identifier.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+
+#### Worked example — most common field setup
+
+The most common field setup is **two GRYFN 4-panel sets**, the **GRYFN
+2-panel validation set**, and a **set of GCPs**. The file names depend
+entirely on how the ELM was calculated in the GRYFN Processing Tool (GPT).
+
+If a **single** GRYFN 4-panel set was used to create the ELM, the names are:
+
+- `QC_ELM_Panels.geojson` — the 4-panel set used to create the ELM.
+- `QC_VAL_Grfyn4P_Panels.geojson` — the 4-panel set **not** used in the ELM.
+- `QC_VAL_Panels.geojson` — the GRYFN 2-panel validation set.
+- `QC_GCP_groundtruth_points.geojson` — reference GCP locations measured
+  independently in the field.
+- `QC_GCP_points.geojson` — observed GCP locations digitised from the drone
+  orthomosaic in QGIS.
+
+If **both** GRYFN 4-panel sets were used together in the ELM, give each ELM
+file a target identifier. Here `yellow` and `blue` are the colours of the
+inventory tags attached to the panels — any other unique identifier (e.g.
+`east` / `west`) works just as well:
+
+- `QC_ELM_yellow_Panels.geojson` — the first 4-panel set used in the ELM.
+- `QC_ELM_blue_Panels.geojson` — the second 4-panel set used in the ELM.
+- `QC_VAL_Panels.geojson` — the GRYFN 2-panel validation set.
+- `QC_GCP_groundtruth_points.geojson` — reference GCP locations measured
+  independently in the field.
+- `QC_GCP_points.geojson` — observed GCP locations digitised from the drone
+  orthomosaic in QGIS.
+
+In either setup, if the flight's data products do **not** all align to a
+single set of digitised points, replace `QC_GCP_points.geojson` with one
+`QC_GCP_{Product}_points.geojson` layer per product (e.g.
+`QC_GCP_VNIR_points.geojson`, `QC_GCP_SWIR_points.geojson`) as described in
+the table above.
+
 
 > [!TIP]
 > Any additional information (e.g. date) can be added to the end of the file
