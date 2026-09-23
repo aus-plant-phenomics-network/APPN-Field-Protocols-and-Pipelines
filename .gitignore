@@ -2,6 +2,10 @@
 *:Zone.Identifier
 *.Identifier
 
+# Third-party / confidential source drafts — never publish
+OriginalDocuments/M3M_drafts/
+OneDrive_*.zip
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
