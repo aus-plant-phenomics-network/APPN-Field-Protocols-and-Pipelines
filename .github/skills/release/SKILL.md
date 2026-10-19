@@ -61,6 +61,13 @@ In [publish.yaml](../../../publish.yaml):
    user whether to add `adopted` to their `status` list.
 5. In [CITATION.cff](../../../CITATION.cff), set `version: "<NEW_REV>"` and
    `date-released` to the release date.
+6. Ask the user whether the author list changed. The source of truth is
+   `APPN_Wiki_CRediT_Contributions.xlsx` on the APPN SharePoint
+   (All APPN › Field Spectroradiometer Working Group); the user must supply a
+   local copy and delete it afterwards. Only rows with Listing preference =
+   `Author` are cited. Order: leads first (anyone with at least one `Lead`
+   role) — Burrell first, the rest by number of Lead roles — then everyone
+   else alphabetical by surname.
 
 ## Step 3 — Write the changelog entry
 

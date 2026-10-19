@@ -25,6 +25,10 @@ authors:
   - given-names: William T.
     family-names: Salter
     affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+  - given-names: Richard
+    family-names: Harwood
+    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+    orcid: "https://orcid.org/0000-0003-2546-8585"
   - given-names: Nik
     family-names: Callow
     affiliation: "Australian Plant Phenomics Network, Centre for Water and Spatial Science, The University of Western Australia"
@@ -56,10 +60,6 @@ authors:
     family-names: Grbovic
     affiliation: "Australian Plant Phenomics Network, Adelaide University"
     orcid: "https://orcid.org/0000-0002-9214-5324"
-  - given-names: Richard
-    family-names: Harwood
-    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
-    orcid: "https://orcid.org/0000-0003-2546-8585"
   - given-names: Molly Ellis
     family-names: Hennekam
     affiliation: "Uncrewed Research Aircraft Facility, Adelaide University"
