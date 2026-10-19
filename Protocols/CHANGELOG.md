@@ -14,6 +14,35 @@ Each released revision below corresponds to a
 tagged `vMAJOR.YYx`. Every **minor** release is also announced at a Field EWG
 meeting.
 
+## [1.03] — 2026-10-19
+
+Adds a formal citation for the protocol suite, crediting the 22 contributors
+who approved authorship, and updates the spectral QC extraction workflow to
+the current QA scripts.
+
+### Added
+
+- **Citation** — the repository now ships a `CITATION.cff` (Citation File
+  Format) listing the authors, version and release date of the suite, with
+  contributions recorded using the CRediT taxonomy. GitHub's **Cite this
+  repository** button exports it as APA or BibTeX.
+- **Home** — new *How to Cite* section pointing to the citation.
+
+### Changed
+
+- **QA Process** — the pixel-extraction script is now
+  `QA00_SpectralValidation.py` (per-run extraction, QC report and spectra
+  figure), with extracted tables written to `QC_data/QC_Spectral_Tables/`
+  under a documented `QC_{ELM|VAL}[_{TargetIdentifier}]_spectra_{VNIR|SWIR}…`
+  naming pattern. The `type` column of the extraction table is replaced by
+  `EM_Region` (`VNIR`/`SWIR`), and the extra columns recorded by QA00
+  (`target_type`, `target_id`, `panel_set`, `Valid_Range`) are documented.
+  Added a *Comparing Runs (multi-run QC)* section for the new
+  `QA02_SpectralRunComparison.py` cross-run comparison script, including
+  date filtering and sharing tables between nodes (`--save-dir` /
+  `--load-dir`). Fixed a merged heading that hid the *Extracting Pixels into
+  a Table* section.
+
 ## [1.02] — 2026-08-13
 
 In-season procedure corrections making GOBI side-overlap planning

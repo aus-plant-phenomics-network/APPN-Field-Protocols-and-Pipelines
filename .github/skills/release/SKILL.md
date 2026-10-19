@@ -59,6 +59,8 @@ In [publish.yaml](../../../publish.yaml):
    Unchanged pages keep their old `last_revised`.
 4. If any Approved documents are being locked for the first time, ask the
    user whether to add `adopted` to their `status` list.
+5. In [CITATION.cff](../../../CITATION.cff), set `version: "<NEW_REV>"` and
+   `date-released` to the release date.
 
 ## Step 3 — Write the changelog entry
 

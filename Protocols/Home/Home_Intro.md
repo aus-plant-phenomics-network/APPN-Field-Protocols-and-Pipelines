@@ -98,6 +98,15 @@ APPN strongly encourages:
 - Constructive feedback from node staff and collaborators
 - Shared learning to improve protocols over time
 
+## 🌿 How to Cite
+
+If you use these SOPs, please cite the revision you followed. The author list
+and release metadata are maintained in
+[`CITATION.cff`](https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines/blob/main/CITATION.cff);
+use **Cite this repository** on the
+[main repository](https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines)
+page to copy the citation as APA or BibTeX.
+
 ## 🌿 Licensing
 
 - Protocols and documentation are released under Creative Commons Attribution
