@@ -14,6 +14,28 @@ Each released revision below corresponds to a
 tagged `vMAJOR.YYx`. Every **minor** release is also announced at a Field EWG
 meeting.
 
+## [1.04] — 2026-11-25
+
+In-season procedure correction raising the CALViS SWIR side-overlap floor
+to ≥ 40% and tightening Standard Mission line spacing, resolving issue
+[#12](https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines/issues/12).
+Also the first revision minted with a DOI, with the author list and
+affiliations updated for registry (ROR) matching.
+
+### Changed
+
+- **CALViS Fieldbook** — side overlap is now planned at **≥ 40% on the
+  SWIR** (previously > 30%), giving ~50% or more on the VNIR (#12). In
+  October 2026 a Type 2 flight at the old 13 m spacing (~32% SWIR side
+  overlap) produced unrecoverable no-data holes between flight lines,
+  traced by GRYFN to gust-induced roll. Standard Mission line spacing is
+  tightened accordingly (Type 1: 8 → 6 m, Type 2: 13 → 11 m, Type 3:
+  21 → 18 m), and the Standard Mission Parameters table now lists the
+  resulting SWIR/VNIR side overlap and GSD.
+- **Citation** — added Bryn Collyer and Neelesh Sharma as authors, added
+  missing ORCID iDs, and simplified affiliations to organisations that
+  resolve in the ROR registry used for DOI metadata.
+
 ## [1.03] — 2026-10-19
 
 Adds a formal citation for the protocol suite, crediting the 22 contributors

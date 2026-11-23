@@ -32,8 +32,8 @@
 #   x      letter patch suffix; editorial-only change (typo, clarification,
 #          photo) — no procedure change. No letter means no patch.
 
-revision: "1.03"
-# revision_date: "2026-04-25"   # uncomment to pin; defaults to today (UTC)
+revision: "1.04"
+revision_date: "2026-11-25"
 
 repo_url: "https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines"
 default_branch: "main"
@@ -94,7 +94,7 @@ pages:
     title: "CALViS Fieldbook"
     category: Sensors
     status: [drafted, ewg_feedback, modified, approved, adopted]
-    last_revised: "1.01"
+    last_revised: "1.04"
 
   - source: Protocols/Sensors/GOBI/GOBI_M350_FieldBook.md
     wiki_page: GOBI-M350-Fieldbook

@@ -6,8 +6,8 @@ abstract: >-
   and ground field phenotyping across the Australian Plant Phenomics Network
   (APPN), covering flight design, sensor field books, QA, plot delineation,
   data management and processing pipelines.
-version: "1.03"
-date-released: 2026-10-19
+version: "1.04"
+date-released: 2026-11-25
 license: CC-BY-4.0
 url: "https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines/wiki"
 repository: "https://github.com/aus-plant-phenomics-network/APPN-Field-Protocols-and-Pipelines"
@@ -20,69 +20,81 @@ keywords:
 authors:
   - given-names: Arden L.
     family-names: Burrell
-    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+    affiliation: "Australian Plant Phenomics Network, The University of Sydney"
     orcid: "https://orcid.org/0000-0001-8762-1296"
   - given-names: William T.
     family-names: Salter
-    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+    affiliation: "Australian Plant Phenomics Network, The University of Sydney"
+    orcid: "https://orcid.org/0000-0003-1653-5192"
   - given-names: Richard
     family-names: Harwood
-    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+    affiliation: "Australian Plant Phenomics Network, The University of Sydney"
     orcid: "https://orcid.org/0000-0003-2546-8585"
   - given-names: Nik
     family-names: Callow
-    affiliation: "Australian Plant Phenomics Network, Centre for Water and Spatial Science, The University of Western Australia"
+    affiliation: "Australian Plant Phenomics Network, The University of Western Australia"
     orcid: "https://orcid.org/0000-0001-6525-953X"
   - given-names: Dillon
     family-names: Campbell
-    affiliation: "Uncrewed Research Aircraft Facility, Adelaide University"
+    affiliation: "Adelaide University"
   - given-names: Connor
     family-names: Cassidy
-    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+    affiliation: "Australian Plant Phenomics Network, The University of Sydney"
+    orcid: "https://orcid.org/0000-0002-7399-4574"
   - given-names: Scott
     family-names: Chapman
     affiliation: "Australian Plant Phenomics Network, The University of Queensland"
     orcid: "https://orcid.org/0000-0003-4732-8452"
   - given-names: Warin
     family-names: Chotirosniramit
-    affiliation: "Australian Plant Phenomics Network, Centre for Water and Spatial Science, The University of Western Australia"
+    affiliation: "Australian Plant Phenomics Network, The University of Western Australia"
     orcid: "https://orcid.org/0009-0008-1299-1581"
+  - given-names: Bryn
+    family-names: Collyer
+    affiliation: "Australian Plant Phenomics Network, The University of Sydney"
+    orcid: "https://orcid.org/0009-0002-0611-7659"
   - given-names: Joanne
     family-names: De Faveri
     affiliation: "Australian Plant Phenomics Network, Adelaide University"
+    orcid: "https://orcid.org/0000-0001-7992-5070"
   - given-names: Marnie
     family-names: Denlay
-    affiliation: "Uncrewed Research Aircraft Facility, Adelaide University"
+    affiliation: "Adelaide University"
   - given-names: Trevor
     family-names: Garnett
     affiliation: "Australian Plant Phenomics Network, Adelaide University"
+    orcid: "https://orcid.org/0000-0003-1664-9659"
   - given-names: Zeljana
     family-names: Grbovic
     affiliation: "Australian Plant Phenomics Network, Adelaide University"
     orcid: "https://orcid.org/0000-0002-9214-5324"
   - given-names: Molly Ellis
     family-names: Hennekam
-    affiliation: "Uncrewed Research Aircraft Facility, Adelaide University"
+    affiliation: "Adelaide University"
   - given-names: Hammad A.
     family-names: Khan
-    affiliation: "Australian Plant Phenomics Network, Department of Primary Industries and Regional Development, Western Australia"
+    affiliation: "Australian Plant Phenomics Network, Department of Primary Industries and Regional Development"
     orcid: "https://orcid.org/0000-0001-7859-8274"
   - given-names: Bipul
     family-names: Neupane
-    affiliation: "DPIRD Node, Australian Plant Phenomics Network, Western Australia"
+    affiliation: "Australian Plant Phenomics Network, Department of Primary Industries and Regional Development"
     orcid: "https://orcid.org/0000-0002-5331-9897"
   - given-names: Reddy
     family-names: Pullanagari
-    affiliation: "Australian Plant Phenomics Network, Waite Research Institute, School of Agriculture, Food & Wine, Adelaide University, Waite Campus, Urrbrae, SA 5064, Australia"
+    affiliation: "Australian Plant Phenomics Network, Adelaide University"
     orcid: "https://orcid.org/0000-0002-5376-2477"
   - given-names: Matthew J.
     family-names: Rendell
-    affiliation: "Australian Plant Phenomics Network, Sydney Informatics Hub, The University of Sydney"
+    affiliation: "Australian Plant Phenomics Network, The University of Sydney"
     orcid: "https://orcid.org/0000-0003-1689-8356"
   - given-names: Franco A.
     family-names: Renones
-    affiliation: "Australian Plant Phenomics Network, Centre for Water and Spatial Science, The University of Western Australia"
+    affiliation: "Australian Plant Phenomics Network, The University of Western Australia"
     orcid: "https://orcid.org/0009-0004-8810-1363"
+  - given-names: Neelesh
+    family-names: Sharma
+    affiliation: "Australian Plant Phenomics Network, Charles Sturt University"
+    orcid: "https://orcid.org/0009-0004-6499-7759"
   - given-names: Daniel T.
     family-names: Smith
     affiliation: "Australian Plant Phenomics Network, The University of Queensland"
@@ -93,8 +105,8 @@ authors:
     orcid: "https://orcid.org/0000-0003-0773-1570"
   - given-names: Yeniu Mickey
     family-names: Wang
-    affiliation: "Uncrewed Research Aircraft Facility, Adelaide University"
+    affiliation: "Adelaide University"
     orcid: "https://orcid.org/0000-0001-7596-1509"
   - given-names: Yue
     family-names: Wang
-    affiliation: "Australian Plant Phenomics Network, Waite Research Institute, School of Agriculture, Food & Wine, Adelaide University, Waite Campus, Urrbrae, SA 5064, Australia"
+    affiliation: "Australian Plant Phenomics Network, Adelaide University"

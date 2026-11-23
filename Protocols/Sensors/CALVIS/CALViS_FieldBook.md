@@ -192,11 +192,12 @@ analysis across APPN operations.
      cause a visibly less smooth trajectory.
    - Altitude and speed will be tested and recommended from APEx results.
    - Ensure the frame period is at a minimum of 20% oversampling, the side
-     overlap is > 30% for the SWIR sensor (> 40% for the VNIR), and the
-     *turnaround distance* is 2× flight speed (> 3× at > 6 m/s). See the
-     note under the
+     overlap is **≥ 40% for the SWIR sensor** (the VNIR will then be
+     ~50% or more), and the *turnaround distance* is 2× flight speed
+     (> 3× at > 6 m/s). See the notes under the
      [Standard Mission Parameters](#standard-mission-parameters) table
-     for why the SWIR sensor is used to set the side overlap.
+     for why the SWIR sensor is used to set the side overlap and why
+     40% is the floor.
 7. Ensure flight lines are in the direction of planting (GRYFN).
 
 > [!NOTE]
@@ -213,20 +214,41 @@ analysis across APPN operations.
 
 ### Standard Mission Parameters
 
-| Standard Mission Type | Scenario                                                              | Altitude (m) | Speed (m/s) | Frame Period VNIR        | Frame Period SWIR        | Distance between flight lines — IF1200 (m) |
-| :-------------------- | :-------------------------------------------------------------------- | :----------: | :---------: | :----------------------- | :----------------------- | :----------------------------------------: |
-| Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  | 6.0 (30% oversampling)   |                     8                      |
-| Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  | 6.56 (30% oversampling)  |                     13                     |
-| Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  | 6.59 (30% oversampling)  |                     21                     |
+| Standard Mission Type | Scenario                                                              | Altitude (m) | Speed (m/s) | Frame Period VNIR        | Frame Period SWIR        | Distance between flight lines — IF1200 (m) | Side overlap SWIR / VNIR | GSD VNIR / SWIR (cm) |
+| :-------------------- | :-------------------------------------------------------------------- | :----------: | :---------: | :----------------------- | :----------------------- | :----------------------------------------: | :----------------------: | :------------------: |
+| Type 1                | Plant counting / small structures (intra-plot differences)           |      30      |     2.1     | 5.32 (20% oversampling)  | 6.0 (30% oversampling)   |                     6                      |        48% / 58%         |      1.4 / 1.8       |
+| Type 2                | Plant breeding experiments (inter-plot differences)                  |      50      |     3.2     | 5.09 (30% oversampling)  | 6.56 (30% oversampling)  |                     11                     |        43% / 54%         |      2.3 / 3.0       |
+| Type 3                | Large landscape measurements (strip trials, hyperspectral transects) |      80      |     5.1     | 5.11 (30% oversampling)  | 6.59 (30% oversampling)  |                     18                     |        41% / 53%         |      3.7 / 4.8       |
 
 > [!NOTE]
 > **Side overlap is planned from the SWIR sensor.** The SWIR has a
 > narrower swath than the VNIR at the same altitude, making it the
 > limiting sensor for flight-line spacing — CALViS carries no RGB frame
-> camera, so the hyperspectral sensors govern the plan. Setting > 30%
+> camera, so the hyperspectral sensors govern the plan. Setting ≥ 40%
 > side overlap on the SWIR in the GRYFN flight calculator automatically
-> gives > 40% on the wider VNIR swath. Planning from the VNIR instead
-> would leave gaps in SWIR coverage between adjacent flight lines.
+> gives ~50% or more on the wider VNIR swath. Planning from the VNIR
+> instead would leave gaps in SWIR coverage between adjacent flight lines.
+> Side-overlap and GSD values above are from the GRYFN flight calculator.
+
+> [!IMPORTANT]
+> **Do not plan below 40% SWIR side overlap.** In October 2026 a Type 2
+> flight at the previous 13 m spacing (~32% SWIR / ~45% VNIR side
+> overlap) produced localised no-data holes between adjacent flight
+> lines — small in the VNIR, larger in the SWIR. GRYFN traced these to
+> gust-induced aircraft roll swinging the line-scanners off the ground
+> between passes. These gaps cannot be recovered in processing, and
+> frame-period oversampling does not help (it only affects along-track
+> sampling). GRYFN recommends 40–45% side overlap for line-scanners, more
+> if windy, and its flight calculator now flags anything below 40% as a
+> caution and below 30% as a cutoff. The spacings above were tightened
+> accordingly (Type 1: 8 → 6 m, Type 2: 13 → 11 m, Type 3: 21 → 18 m),
+> reducing the area covered per flight by ~14–25%. On windy days
+> (approaching the 5 m/s recording threshold), tighten spacing further.
+>
+> Type 1 is set at 6 m rather than the 6.5 m that would just clear 40%
+> (~44% SWIR) because the IF1200 flies without RTK: a ~1 m drift between
+> adjacent lines costs ~9% of SWIR side overlap at 30 m, and 6 m keeps
+> that worst case near 40%.
 
 ---
 
